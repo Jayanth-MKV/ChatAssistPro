@@ -157,11 +157,11 @@ def read_root():
     Example response:
     ```json
     {
-      "Hello": "World"
+      "Docs": "https://jayanth-mkv-chat-assist-pro.hf.space/docs"
     }
     ```
     """
-    return {"Hello": "World"}
+    return {"Docs": "https://jayanth-mkv-chat-assist-pro.hf.space/docs"}
 
 if __name__ == "__main__":
     import uvicorn
