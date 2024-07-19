@@ -4,10 +4,9 @@ import random
 import json
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import List
 
-# Load the trained model
-nlp = spacy.load("intent_model")
+# Load the model from Hugging Face
+nlp = spacy.load("en_pipeline")
 
 # Load FAQs
 with open("faq.json") as f:
@@ -55,7 +54,6 @@ def get_intent(text):
     doc = nlp(text)
     intent = max(doc.cats, key=doc.cats.get)
     confidence = doc.cats[intent]
-    confidence = round(confidence, 2)
     return intent, confidence
 
 def get_response(text):
@@ -115,8 +113,8 @@ async def intent(chat_input: ChatInput):
     Example response:
     ```json
     {
-      "intent": "check_invoice",
-      "confidence": (0 to 1) eg: 1
+      "intent": "get_invoice",
+      "confidence": 0.85
     }
     ```
     """

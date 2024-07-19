@@ -1,3 +1,4 @@
 fastapi
 uvicorn
 spacy
+en_pipeline@https://huggingface.co/Jayanth-MKV/en_pipeline/resolve/main/en_pipeline-any-py3-none-any.whl
