@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intent Classification Chatbot API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .endpoint {
+            background-color: #e9f7ef;
+            border-left: 4px solid #27ae60;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .cta {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .cta:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Intent Classification Chatbot API</h1>
+    
+    <div class="container">
+        <h2>About the API</h2>
+        <p>This API provides a powerful intent classification chatbot that can be easily integrated into your applications. It offers several endpoints for chatting, intent detection, and accessing FAQs.</p>
+    </div>
+    
+    <div class="container">
+        <h2>Key Features</h2>
+        <ul>
+            <li>Intent classification for user messages</li>
+            <li>Chatbot responses based on detected intents</li>
+            <li>Access to frequently asked questions (FAQs)</li>
+            <li>List of available intent categories</li>
+        </ul>
+    </div>
+    
+    <div class="container">
+        <h2>How to Use</h2>
+        <p>To integrate this API into your application, you can make HTTP requests to the following endpoints:</p>
+        
+        <div class="endpoint">
+            <strong>POST /chat</strong>: Chat with the bot
+        </div>
+        <div class="endpoint">
+            <strong>POST /intent</strong>: Get intent of a message
+        </div>
+        <div class="endpoint">
+            <strong>GET /faqs</strong>: Get a list of FAQs
+        </div>
+        <div class="endpoint">
+            <strong>GET /intents</strong>: Get all available intent categories
+        </div>
+        
+        <p>Base URL: <code>https://jayanth-mkv-chat-assist-pro.hf.space</code></p>
+        
+        <p>For detailed information on request and response formats, please refer to the API documentation.</p>
+    </div>
+    
+    <div class="container">
+        <h2>Example Usage</h2>
+        <p>Here's a quick example of how to use the chat endpoint:</p>
+        <pre><code>
+import requests
+import json
+
+url = "https://jayanth-mkv-chat-assist-pro.hf.space/chat"
+headers = {"Content-Type": "application/json"}
+data = {"message": "How do I track my order?"}
+
+response = requests.post(url, headers=headers, data=json.dumps(data))
+print(response.json())
+        </code></pre>
+    </div>
+    
+    <a href="https://jayanth-mkv-chat-assist-pro.hf.space/docs" class="cta">View API Documentation</a>
+</body>
+</html>
