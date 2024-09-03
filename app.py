@@ -4,6 +4,7 @@ import random
 import json
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi.responses import HTMLResponse
 
 # Load the model from Hugging Face
 nlp = spacy.load("en_pipeline")
@@ -68,7 +69,11 @@ def get_response(text):
         else:
             return "I'm not quite sure what you're asking. Could you please provide more details or rephrase your question?"
 
-app = FastAPI()
+app = FastAPI(
+    title="Intent Classification Chatbot API",
+    description="This API provides endpoints for chatting with an intent classification bot, getting intents for messages, and accessing FAQs.",
+    version="1.0.0",
+)
 
 class ChatInput(BaseModel):
     message: str
@@ -149,19 +154,34 @@ async def get_faqs():
     end_index = start_index + 5
     return {"faqs": faqs[start_index:end_index]}
 
-@app.get("/", summary="Root endpoint", response_description="Welcome message")
-def read_root():
+@app.get("/intents", summary="Get all available intent categories", response_description="List of all intent categories")
+async def get_intents():
     """
-    Root endpoint that returns a welcome message.
+    This endpoint returns a list of all available intent categories supported by the chatbot.
     
     Example response:
     ```json
     {
-      "Docs": "https://jayanth-mkv-chat-assist-pro.hf.space/docs"
+      "intents": [
+        "get_invoice",
+        "payment_issue",
+        "check_invoice",
+        "contact_customer_service",
+        ...
+      ]
     }
     ```
     """
-    return {"Docs": "https://jayanth-mkv-chat-assist-pro.hf.space/docs"}
+    return {"intents": list(intents_responses.keys())}
+
+@app.get("/", response_class=HTMLResponse)
+async def read_root():
+    """
+    Root endpoint that returns an HTML page with information about the API.
+    """
+    with open("index.html", "r") as f:
+        html_content = f.read()
+    return HTMLResponse(content=html_content, status_code=200)
 
 if __name__ == "__main__":
     import uvicorn
