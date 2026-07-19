@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 720" role="img" aria-labelledby="title desc">
+  <title id="title">Chat Assist Pro architecture</title>
+  <desc id="desc">Clients call FastAPI endpoints that route greetings and farewells through regular expressions, other messages through a spaCy intent model, and FAQ requests to a local JSON file.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0l10 5-10 5z" fill="#4f8f72"/></marker>
+    <style>.h{font:700 20px 'Segoe UI',Arial,sans-serif;fill:#263f52}.s{font:15px 'Segoe UI',Arial,sans-serif;fill:#526875}.m{font:14px Consolas,monospace;fill:#4f8f72}.box{fill:#fff;stroke:#b8c8bf;stroke-width:2}.flow{fill:none;stroke:#4f8f72;stroke-width:4;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1400" height="720" fill="#f7f6f1"/>
+  <text x="68" y="79" font-family="Georgia,serif" font-size="34" font-weight="700" fill="#263f52">Request routing inside app.py</text>
+  <text x="68" y="111" class="s">A single FastAPI process loads the model and FAQ file at startup.</text>
+
+  <rect x="60" y="210" width="210" height="250" rx="22" fill="#263f52"/>
+  <text x="92" y="258" font-family="Consolas,monospace" font-size="14" fill="#d1a54a">CLIENTS</text>
+  <text x="92" y="306" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="700" fill="#f7f6f1">Browser / curl</text>
+  <text x="92" y="342" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#dce8e0">HTML landing page</text>
+  <text x="92" y="372" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#dce8e0">OpenAPI client</text>
+  <text x="92" y="402" font-family="Segoe UI,Arial,sans-serif" font-size="15" fill="#dce8e0">JSON requests</text>
+
+  <rect x="350" y="154" width="300" height="420" rx="24" fill="#fff" stroke="#4f8f72" stroke-width="3"/>
+  <text x="382" y="201" class="m">FASTAPI BOUNDARY</text>
+  <text x="382" y="242" class="h">app.py</text>
+  <rect x="382" y="274" width="236" height="54" rx="12" fill="#edf5f0"/><text x="404" y="307" class="m">POST /chat</text>
+  <rect x="382" y="340" width="236" height="54" rx="12" fill="#edf5f0"/><text x="404" y="373" class="m">POST /intent</text>
+  <rect x="382" y="406" width="236" height="54" rx="12" fill="#edf5f0"/><text x="404" y="439" class="m">GET /faqs · /intents</text>
+  <rect x="382" y="472" width="236" height="54" rx="12" fill="#edf5f0"/><text x="404" y="505" class="m">GET / · /docs</text>
+  <path class="flow" d="M270 335h80"/>
+
+  <rect x="738" y="154" width="286" height="184" rx="22" class="box"/>
+  <text x="768" y="198" class="m">MESSAGE ROUTER</text>
+  <text x="768" y="239" class="h">Greeting / farewell</text>
+  <text x="768" y="271" class="s">regular-expression match</text>
+  <text x="768" y="302" class="s">fixed conversational reply</text>
+  <rect x="738" y="390" width="286" height="184" rx="22" class="box"/>
+  <text x="768" y="434" class="m">INTENT ROUTER</text>
+  <text x="768" y="475" class="h">spaCy en_pipeline</text>
+  <text x="768" y="507" class="s">category + confidence</text>
+  <text x="768" y="538" class="s">threshold → response map</text>
+  <path class="flow" d="M650 301h88M650 430h88"/>
+
+  <rect x="1110" y="154" width="230" height="184" rx="22" class="box"/>
+  <text x="1140" y="198" class="m">LOCAL DATA</text>
+  <text x="1140" y="239" class="h">faq.json</text>
+  <text x="1140" y="271" class="s">random block of five</text>
+  <text x="1140" y="302" class="s">question objects</text>
+  <rect x="1110" y="390" width="230" height="184" rx="22" fill="#fff7df" stroke="#d1a54a" stroke-width="2"/>
+  <text x="1140" y="434" class="m">INSTALL-TIME DEPENDENCY</text>
+  <text x="1140" y="475" class="h">Model wheel</text>
+  <text x="1140" y="507" class="s">Hugging Face URL in</text>
+  <text x="1140" y="538" class="s">requirements.txt</text>
+  <path class="flow" d="M1024 246h86M1024 482h86"/>
+
+  <text x="68" y="650" class="s">No persistence, external business system, authentication, or human handoff service is implemented.</text>
+</svg>

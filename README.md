@@ -1,78 +1,107 @@
-# FAQ Customer Support Chatbot API
-ChatAssist Pro is an advanced AI-powered chatbot designed to streamline customer support interactions. It offers prompt and accurate responses to a wide range of customer queries, from order tracking to account management, ensuring a seamless and efficient user experience. With intuitive handling of FAQs and intelligent intent recognition.
+<div align="center">
+  <img src="docs/assets/icon.svg" width="132" alt="Intent label inside a chat bubble" />
 
-https://replit.com/@HappyHappy19/chatbotapi
+# Chat Assist Pro
 
-## Setup
+**A FastAPI service that classifies support intents and returns deterministic FAQ-style responses.**
 
-### Prerequisites
+[![Python 3.10](https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)](app.py)
+[![spaCy](https://img.shields.io/badge/NLP-spaCy-09A3D5?logo=spacy&logoColor=white)](requirements.txt)
 
-Ensure you have the following installed:
+[Quick start](#quick-start) · [API](#api-reference) · [Architecture](#architecture) · [Docker](#docker) · [Limitations](#scope-and-limitations)
 
-- Python (>=3.10)
-- pip (package installer for Python)
-- [Poetry](https://python-poetry.org/)
+</div>
 
-### Installation
+<div align="center">
+  <img src="docs/assets/cover.svg" width="900" alt="API protocol card for Chat Assist Pro" />
+</div>
 
-1. Clone the repository:
+## What is it?
 
-   ```bash
-   git clone <url>
-   cd customer-support-chatbot
-   ```
+Chat Assist Pro is a compact customer-support API. It recognizes greetings and farewells with regular expressions, classifies other messages with a packaged spaCy model, and maps supported intent labels to fixed responses. It also exposes FAQ and intent-list endpoints plus a static HTML landing page.
 
-2. Install the required Python packages using Poetry:
+The service does not connect to orders, payments, accounts, tickets, or a human-agent system. Responses such as cancellation, refund, or account changes are examples; they do not perform those actions.
 
-   ```bash
-   poetry install
-   or
-   pip install fastapi uvicorn spacy
+## Quick start
 
-   ```
+The Poetry manifest targets Python 3.10, while the downloadable `en_pipeline` model is declared only in `requirements.txt`. The most complete local setup is therefore:
 
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+uvicorn app:app --reload
+```
 
-4. Run the app:
+On Windows PowerShell, activate with `.\.venv\Scripts\Activate.ps1`.
 
-   ```bash
-    uvicorn main:app --reload
-   ```
+Open:
 
-### Using Docker
+- Landing page: `http://localhost:8000/`
+- OpenAPI docs: `http://localhost:8000/docs`
 
-If you prefer using Docker, you can pull the Docker image and run the application in a container:
+Try the chat endpoint:
 
-1. Pull the Docker image:
+```bash
+curl -X POST http://localhost:8000/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message":"How do I track my order?"}'
+```
 
-   ```bash
-    docker build -t chatbotapi .
-   ```
+## API reference
 
-2. Run the Docker container:
+| Method | Path | Implemented response |
+| --- | --- | --- |
+| `GET` | `/` | Static HTML service overview from `index.html` |
+| `POST` | `/chat` | Greeting/farewell response or response mapped from the highest-confidence spaCy intent |
+| `POST` | `/intent` | Detected intent and confidence |
+| `GET` | `/faqs` | A random contiguous block of five FAQ objects from `faq.json` |
+| `GET` | `/intents` | The intent keys supported by the response map |
+| `GET` | `/docs` | FastAPI-generated Swagger UI |
 
-   ```bash
-   docker run -p 8000:8000 chatbotapi
-   ```
+`POST /chat` and `POST /intent` accept:
 
-This FastAPI app provides two endpoints:
+```json
+{
+  "message": "I need help with my invoice"
+}
+```
 
-/chat (POST): Accepts a JSON payload with a "message" field and returns the chatbot's response.
-/faqs (GET): Returns the first 5 FAQs from the loaded FAQ list.
+The configured confidence threshold is `0.7`. Messages below it receive a request for clarification.
 
-You can test the API using tools like curl, Postman, or by creating a simple frontend application that makes requests to these endpoints.
+## Architecture
 
+![Architecture diagram showing FastAPI routing to regex responses, a spaCy intent model, and local FAQ data](docs/assets/architecture.svg)
 
-## Contributing
+## Docker
 
-Contributions are welcome! Here's how you can contribute:
+```bash
+docker build -t chat-assist-pro .
+docker run --rm -p 7860:7860 chat-assist-pro
+```
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/improvement`).
-3. Make your changes.
-4. Commit your changes (`git commit -am 'Add new feature'`).
-5. Push to the branch (`git push origin feature/improvement`).
-6. Create a new Pull Request.
+The container command listens on port `7860`. The Dockerfile’s `EXPOSE 8000` line does not match that command, so publish port `7860` as shown.
 
-## License
+The Docker image uses Python 3.9 even though `pyproject.toml` targets Python 3.10. The pip requirements are unpinned except for the model wheel; rebuilds can therefore resolve different dependency versions.
 
-This project is licensed under the MIT License - see the [LICENSE](MIT) file for details.
+## Scope and limitations
+
+- Responses are static templates and placeholders, not transactions against real systems.
+- The intent model is downloaded from a Hugging Face wheel URL during installation and loaded at process startup.
+- FAQ selection assumes at least five entries and returns objects, despite older docstrings describing strings.
+- There is no authentication, rate limiting, persistence, observability, feedback capture, or escalation workflow.
+- The source includes example phone numbers, emails, invoice links, and deployed URLs; replace them before deployment.
+- No automated tests, CI configuration, health endpoint, or root license file is committed.
+
+## Repository layout
+
+```text
+chat-assist-pro/
+├── app.py            # FastAPI service and intent routing
+├── faq.json          # local FAQ questions
+├── index.html        # landing page
+├── requirements.txt  # runtime packages + spaCy model wheel
+├── pyproject.toml    # Poetry metadata
+└── Dockerfile
+```

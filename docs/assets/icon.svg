@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Chat Assist Pro icon</title>
+  <desc id="desc">A speech bubble containing an intent label and three response lines.</desc>
+  <rect width="256" height="256" rx="48" fill="#f7f6f1"/>
+  <path d="M44 48h168a 18 18 0 0 1 18 18v112a 18 18 0 0 1 -18 18h-78l-42 31 9-31H44a 18 18 0 0 1 -18 -18V66a 18 18 0 0 1 18 -18z" fill="#263f52"/>
+  <rect x="56" y="75" width="78" height="34" rx="17" fill="#4f8f72"/>
+  <text x="75" y="98" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#fff">intent</text>
+  <path d="M57 132h142M57 155h108" stroke="#dce8e0" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="192" cy="155" r="10" fill="#d1a54a"/>
+</svg>
