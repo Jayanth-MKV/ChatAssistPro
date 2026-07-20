@@ -9,7 +9,7 @@
 [![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)](app.py)
 [![spaCy](https://img.shields.io/badge/NLP-spaCy-09A3D5?logo=spacy&logoColor=white)](requirements.txt)
 
-[Quick start](#quick-start) · [API](#api-reference) · [Architecture](#architecture) · [Docker](#docker) · [Limitations](#scope-and-limitations)
+[Interfaces](#interfaces) · [Quick start](#quick-start) · [API](#api-reference) · [Architecture](#architecture) · [Limitations](#scope-and-limitations)
 
 </div>
 
@@ -19,9 +19,18 @@
 
 ## What is it?
 
-Chat Assist Pro is a compact customer-support API. It recognizes greetings and farewells with regular expressions, classifies other messages with a packaged spaCy model, and maps supported intent labels to fixed responses. It also exposes FAQ and intent-list endpoints plus a static HTML landing page.
+Chat Assist Pro is a compact customer-support intent-classification collection. Its primary FastAPI service recognizes greetings and farewells with regular expressions, classifies other messages with a packaged spaCy model, and maps supported intent labels to fixed responses. A separate Streamlit interface includes a bundled historical model artifact, chat history, and FAQ buttons.
 
-The service does not connect to orders, payments, accounts, tickets, or a human-agent system. Responses such as cancellation, refund, or account changes are examples; they do not perform those actions.
+Neither interface connects to orders, payments, accounts, tickets, or a human-agent system. Responses such as cancellation, refund, or account changes are examples; they do not perform those actions.
+
+## Interfaces
+
+| Path | Surface | Model delivery | Best use |
+| --- | --- | --- | --- |
+| Repository root | FastAPI + static landing page | Downloads the declared spaCy pipeline during dependency installation | API exploration and integration experiments |
+| [`interfaces/streamlit-intent-classifier/`](interfaces/streamlit-intent-classifier/) | Streamlit chat UI | Loads the checked-in 27-intent spaCy artifact | Interactive model demonstration and training-reference review |
+
+The Streamlit interface was consolidated from the former [`customer-support-intent-classification-streamlit`](https://github.com/jayanth-mkv/customer-support-intent-classification-streamlit) repository. Its redundant nested app copy was intentionally omitted; the original repository remains available as the historical record.
 
 ## Quick start
 
@@ -92,6 +101,7 @@ The Docker image uses Python 3.9 even though `pyproject.toml` targets Python 3.1
 - FAQ selection assumes at least five entries and returns objects, despite older docstrings describing strings.
 - There is no authentication, rate limiting, persistence, observability, feedback capture, or escalation workflow.
 - The source includes example phone numbers, emails, invoice links, and deployed URLs; replace them before deployment.
+- The Streamlit model artifact is roughly 30 MB, and its recorded evaluation cannot be reproduced without the external Kaggle dataset.
 - No automated tests, CI configuration, health endpoint, or root license file is committed.
 
 ## Repository layout
@@ -100,6 +110,8 @@ The Docker image uses Python 3.9 even though `pyproject.toml` targets Python 3.1
 chat-assist-pro/
 ├── app.py            # FastAPI service and intent routing
 ├── faq.json          # local FAQ questions
+├── interfaces/       # independent user-interface experiments
+│   └── streamlit-intent-classifier/
 ├── index.html        # landing page
 ├── requirements.txt  # runtime packages + spaCy model wheel
 ├── pyproject.toml    # Poetry metadata

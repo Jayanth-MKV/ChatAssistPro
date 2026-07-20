@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img">
+  <title>Customer Support Intent Classifier chat icon</title>
+  <desc>Two overlapping chat bubbles inside a paper-and-ink project icon.</desc>
+  <rect x="8" y="8" width="240" height="240" rx="42" fill="#F4F0E7" stroke="#151515" stroke-width="8"/>
+  <path d="M54 143L44 178L91 143Z" fill="#FFFDF8" stroke="#151515" stroke-width="7" stroke-linejoin="round"/>
+  <rect x="34" y="54" width="150" height="92" rx="18" fill="#FFFDF8" stroke="#151515" stroke-width="7"/>
+  <path d="M181 190L204 215L199 187Z" fill="#F4F0E7" stroke="#B54A32" stroke-width="7" stroke-linejoin="round"/>
+  <rect x="91" y="112" width="133" height="80" rx="18" fill="#F4F0E7" stroke="#B54A32" stroke-width="7"/>
+  <path d="M59 88H144M59 113H118M116 145H198M116 169H170" stroke="#151515" stroke-width="7"/>
+</svg>

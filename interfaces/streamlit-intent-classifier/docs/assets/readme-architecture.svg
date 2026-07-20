@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 720" role="img">
+  <title>Customer Support Intent Classifier architecture</title>
+  <desc>A browser message moves through Streamlit, rule or model routing, confidence-aware response mapping, and session chat history.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0l8 4-8 4z" fill="#151515"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="720" fill="#F4F0E7"/>
+  <rect x="28" y="28" width="1344" height="664" fill="none" stroke="#151515" stroke-width="3"/>
+  <text x="76" y="108" fill="#151515" font-family="Georgia, serif" font-size="48" font-weight="700">How a message becomes a response</text>
+  <text x="78" y="148" fill="#69655E" font-family="Arial, sans-serif" font-size="20">Implemented locally in main.py with a bundled spaCy model and fixed responses.</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="58" y="244" width="220" height="190" fill="#E5DED2" stroke="#151515" stroke-width="3"/>
+    <text x="84" y="290" fill="#B54A32" font-family="'Courier New', monospace" font-size="17">01 / INPUT</text>
+    <text x="84" y="338" fill="#151515" font-family="Georgia, serif" font-size="27" font-weight="700">Browser</text>
+    <text x="84" y="376" fill="#151515" font-size="17">Message or FAQ button</text>
+    <path d="M278 339h42" stroke="#151515" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="338" y="244" width="220" height="190" fill="#F4F0E7" stroke="#151515" stroke-width="3"/>
+    <text x="364" y="290" fill="#B54A32" font-family="'Courier New', monospace" font-size="17">02 / UI</text>
+    <text x="364" y="338" fill="#151515" font-family="Georgia, serif" font-size="27" font-weight="700">Streamlit</text>
+    <text x="364" y="376" fill="#151515" font-size="17">Form and session state</text>
+    <path d="M558 339h42" stroke="#151515" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="618" y="244" width="220" height="190" fill="#F4F0E7" stroke="#151515" stroke-width="3"/>
+    <text x="644" y="290" fill="#B54A32" font-family="'Courier New', monospace" font-size="17">03 / ROUTE</text>
+    <text x="644" y="338" fill="#151515" font-family="Georgia, serif" font-size="25" font-weight="700">Rules or spaCy</text>
+    <text x="644" y="376" fill="#151515" font-size="17">Greeting / farewell</text>
+    <text x="644" y="403" fill="#151515" font-size="17">or intent_model</text>
+    <path d="M838 339h42" stroke="#151515" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="898" y="244" width="220" height="190" fill="#F4F0E7" stroke="#151515" stroke-width="3"/>
+    <text x="924" y="290" fill="#B54A32" font-family="'Courier New', monospace" font-size="17">04 / DECIDE</text>
+    <text x="924" y="338" fill="#151515" font-family="Georgia, serif" font-size="25" font-weight="700">Map response</text>
+    <text x="924" y="376" fill="#151515" font-size="17">0.7 threshold</text>
+    <text x="924" y="403" fill="#151515" font-size="17">or fallback</text>
+    <path d="M1118 339h42" stroke="#151515" stroke-width="4" marker-end="url(#arrow)"/>
+    <rect x="1178" y="244" width="164" height="190" fill="#151515"/>
+    <text x="1202" y="290" fill="#D77A61" font-family="'Courier New', monospace" font-size="17">05 / OUTPUT</text>
+    <text x="1202" y="338" fill="#F4F0E7" font-family="Georgia, serif" font-size="25" font-weight="700">Chat</text>
+    <text x="1202" y="376" fill="#F4F0E7" font-size="17">In-session</text>
+    <text x="1202" y="403" fill="#F4F0E7" font-size="17">history</text>
+  </g>
+  <line x1="78" y1="518" x2="1322" y2="518" stroke="#B9B3A8" stroke-width="2"/>
+  <text x="78" y="576" fill="#151515" font-family="Arial, sans-serif" font-size="18">Solid connectors are implemented. No customer-system or LLM service is called.</text>
+</svg>
